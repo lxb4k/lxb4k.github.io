@@ -1,0 +1,39 @@
+name: Проверка PR старост
+
+# ВАЖНО: pull_request_target запускает этот файл из основной ветки (v5), а не из PR,
+# поэтому PR не может подменить проверку. Код из PR здесь НЕ скачивается и НЕ выполняется:
+# скрипт только читает список файлов и их размер через API GitHub.
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened, edited]
+    branches:
+      - v5
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      # по умолчанию забирается основная ветка (v5), не ветка автора PR
+      - uses: actions/checkout@v4
+
+      - name: Проверить файлы PR
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_AUTHOR: ${{ github.event.pull_request.user.login }}
+          AUTHOR_ASSOC: ${{ github.event.pull_request.author_association }}
+          HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+        run: python3 .github/scripts/check_pr.py
+
+      # Автослияние (по желанию): включи «Allow auto-merge» в Settings → General,
+      # сделай проверку «check» обязательной в защите ветки v5 и раскомментируй:
+      # - name: Автослияние
+      #   env:
+      #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   run: gh pr merge ${{ github.event.pull_request.number }} --auto --squash --repo ${{ github.repository }}
