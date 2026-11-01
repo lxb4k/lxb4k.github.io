@@ -27,7 +27,9 @@
   .group-btn, .week-btn, .pwa-btn {
     min-height: 42px;
   }
+}
 
+/* Ровный список конспектов слева */
 .explorer li > a {
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -38,11 +40,11 @@
   height: 2.7em;
   padding: 2px 0;
   overflow-wrap: anywhere;
-  }
+}
 
 /* Не показывать теги в списках заметок (страницы папок и тегов) */
 .section-li .tags,
-article ul.tags {
-  display: none;
-}
+article ul.tags,
+article ul:has(> li > a.tag-link) {
+  display: none !important;
 }
