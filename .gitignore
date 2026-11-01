@@ -1,1 +1,6 @@
 
+.DS_Store
+content/**/.obsidian/
+node_modules
+public
+.quartz
