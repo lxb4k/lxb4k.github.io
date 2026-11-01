@@ -53,3 +53,23 @@ article ul:has(> li > a.tag-link) {
 .section-li .meta {
   display: none !important;
 }
+
+/* Список заметок: одна колонка на всю ширину, ровные строки */
+.section-li > .section {
+  display: block !important;
+  grid-template-columns: 1fr !important;
+}
+
+.section-li {
+  margin: 0 !important;
+  padding: 0.55rem 0;
+  border-bottom: 1px solid var(--lightgray);
+}
+
+.section-li .desc h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.4;
+  font-variant-numeric: tabular-nums;
+}
