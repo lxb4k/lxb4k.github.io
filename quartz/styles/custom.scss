@@ -48,3 +48,8 @@ article ul.tags,
 article ul:has(> li > a.tag-link) {
   display: none !important;
 }
+
+/* Не показывать дату в списках заметок */
+.section-li .meta {
+  display: none !important;
+}
