@@ -1,0 +1,10 @@
+{
+  "name": "Физтех ПИ — Расписание",
+  "short_name": "Расписание ПИ",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2AABEE",
+  "description": "Расписание ПИ-б-о-261 и ПИ-б-о-262"
+}
