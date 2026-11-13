@@ -57,3 +57,36 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  backup:
+    needs: deploy
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: v5
+          fetch-depth: 0
+
+      - name: Download published site
+        uses: actions/download-artifact@v4
+        with:
+          name: github-pages
+          path: ${{ runner.temp }}/site-artifact
+
+      - name: Save last working copy
+        run: |
+          mkdir -p "${RUNNER_TEMP}/site-copy"
+          tar -xf "${RUNNER_TEMP}/site-artifact/artifact.tar" -C "${RUNNER_TEMP}/site-copy"
+          rm -rf docs
+          mkdir docs
+          cp -a "${RUNNER_TEMP}/site-copy/." docs/
+          touch docs/.nojekyll
+          git add -A docs
+          if git diff --cached --quiet; then
+            exit 0
+          fi
+          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m 'Обновить резервную копию сайта'
+          git push origin HEAD:v5

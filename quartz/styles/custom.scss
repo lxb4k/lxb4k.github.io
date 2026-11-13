@@ -193,13 +193,16 @@ body[data-slug^="лекции/"] .article-title {
   line-height: 1.25;
 }
 
-body[data-slug^="лекции/"] article .markdown-preview-view > h1:first-child {
+body[data-slug^="лекции/"] article .markdown-preview-view > p:first-child:has(> em:only-child) {
   margin: 0 0 1.35rem;
   color: var(--darkgray);
-  font-family: var(--bodyFont);
   font-size: 1.05rem;
-  font-weight: 600;
   line-height: 1.5;
+}
+
+body[data-slug^="лекции/"] article .markdown-preview-view > p:first-child > em:only-child {
+  font-style: normal;
+  font-weight: 600;
 }
 
 body[data-slug^="лекции/"] article h2 {
@@ -276,10 +279,6 @@ body[data-slug^="лекции/"] .toc .toc-content a {
   opacity: 0.85;
 }
 
-body[data-slug^="лекции/"]:has(article .markdown-preview-view > h1:first-child)
-  .toc
-  .toc-content
-  > li:first-child,
 body[data-slug^="лекции/"] .toc .toc-content > li:has(> a[href*="оглавление"]) {
   display: none;
 }
