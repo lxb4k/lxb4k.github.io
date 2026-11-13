@@ -3,6 +3,7 @@
 content/**/.obsidian/
 node_modules
 public
+docs/
 .quartz
 *.tsbuildinfo
 .env
