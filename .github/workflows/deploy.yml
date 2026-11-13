@@ -84,6 +84,7 @@ jobs:
           mkdir docs
           cp -a "${RUNNER_TEMP}/site-copy/." docs/
           touch docs/.nojekyll
+          python3 .github/scripts/prepare-pages-backup.py
           git add -A docs
           if git diff --cached --quiet; then
             exit 0
