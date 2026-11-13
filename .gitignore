@@ -4,3 +4,7 @@ content/**/.obsidian/
 node_modules
 public
 .quartz
+*.tsbuildinfo
+.env
+.env.*
+!.env.example

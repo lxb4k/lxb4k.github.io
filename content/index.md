@@ -7,39 +7,50 @@ title: ФизТех | ПИ
   .controls-wrapper {
     display: flex;
     flex-wrap: wrap;
-    gap: 15px;
-    margin: 1.2rem 0;
+    gap: 10px 14px;
+    margin: 1rem 0 0.9rem;
     align-items: center;
+    padding: 14px;
+    background: var(--lightbg);
+    border: 1px solid var(--lightgray);
+    border-radius: 14px;
   }
 
   .toggle-group {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 5px;
   }
 
   .toggle-label {
     font-size: 0.85rem;
     font-weight: bold;
-    color: var(--gray);
+    color: var(--darkgray);
     margin-right: 4px;
   }
 
   .week-btn, .group-btn, .ics-btn {
-    background: var(--lightbg);
-    color: var(--gray);
+    background: var(--light);
+    color: var(--darkgray);
     border: 1px solid var(--lightgray);
-    padding: 6px 14px;
-    border-radius: 6px;
+    min-height: 40px;
+    padding: 8px 12px;
+    border-radius: 9px;
     cursor: pointer;
-    font-weight: 600;
-    font-size: 0.85rem;
-    transition: all 0.2s ease;
+    font-weight: 700;
+    font-size: 0.88rem;
+    line-height: 1.2;
+    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
   }
 
-  .week-btn:hover, .group-btn:hover {
+  .week-btn:hover, .group-btn:hover, .ics-btn:hover {
     border-color: var(--secondary);
     color: var(--secondary);
+  }
+
+  .controls-wrapper button:focus-visible {
+    outline: 2px solid var(--secondary);
+    outline-offset: 2px;
   }
 
   .week-btn.active, .group-btn.active {
@@ -54,6 +65,7 @@ title: ФизТех | ПИ
     text-decoration: none;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
   }
 
   .ics-btn:hover {
@@ -65,77 +77,41 @@ title: ФизТех | ПИ
     display: none;
   }
 
-  /* ПК ВЕРСИЯ: 5 дней на экран + скролл для субботы */
+  /* Дни размещаются в сетке без горизонтальной прокрутки. */
   .schedule-block.active {
-    display: flex;
-    gap: 8px;
-    overflow-x: auto;
-    padding-bottom: 10px;
-    scroll-behavior: smooth;
-    align-items: flex-start;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 215px), 1fr));
+    gap: 12px;
+    align-items: start;
   }
 
   .day-column {
     background-color: var(--lightbg);
     border: 1px solid var(--lightgray);
-    border-radius: 8px;
-    padding: 8px;
+    border-radius: 12px;
+    padding: 12px;
     display: flex;
     flex-direction: column;
-    min-width: calc((100% - 32px) / 5);
-    flex: 0 0 calc((100% - 32px) / 5);
+    min-width: 0;
     box-sizing: border-box;
   }
 
-  /* МОБИЛЬНАЯ ВЕРСИЯ: Вертикальный список */
-  @media (max-width: 768px) {
-    .schedule-block.active {
-      flex-direction: column;
-      overflow-x: visible;
-      align-items: stretch;
-    }
-
-    .day-column {
-      min-width: 100%;
-      flex: 1 1 100%;
-    }
-  }
-
-  /* Стилизация полосы прокрутки */
-  .schedule-block.active::-webkit-scrollbar {
-    height: 6px;
-  }
-
-  .schedule-block.active::-webkit-scrollbar-track {
-    background: var(--lightbg);
-    border-radius: 4px;
-  }
-
-  .schedule-block.active::-webkit-scrollbar-thumb {
-    background: var(--lightgray);
-    border-radius: 4px;
-  }
-
-  .schedule-block.active::-webkit-scrollbar-thumb:hover {
-    background: var(--secondary);
-  }
-
   .day-header {
-    font-weight: bold;
-    font-size: 0.95rem;
-    color: var(--secondary);
-    border-bottom: 2px solid var(--tertiary);
-    padding-bottom: 4px;
-    margin-bottom: 8px;
-    text-align: center;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--dark);
+    border-bottom: 1px solid var(--lightgray);
+    padding-bottom: 9px;
+    margin-bottom: 10px;
+    text-align: left;
   }
 
   .lesson-card {
-    background-color: var(--highlight);
+    background: color-mix(in srgb, var(--light) 65%, var(--lightgray));
     border-left: 3px solid var(--secondary);
-    border-radius: 4px;
-    padding: 6px 8px;
-    margin-bottom: 8px;
+    border-radius: 7px;
+    padding: 10px;
+    margin-bottom: 9px;
   }
 
   .lesson-card:last-child {
@@ -143,15 +119,15 @@ title: ФизТех | ПИ
   }
 
   .lesson-time {
-    font-size: 0.75rem;
+    font-size: 0.78rem;
     font-weight: 700;
-    color: var(--tertiary);
-    margin-bottom: 2px;
+    color: var(--darkgray);
+    margin-bottom: 5px;
   }
 
   .lesson-type {
     display: inline-block;
-    font-size: 0.62rem;
+    font-size: 0.66rem;
     font-weight: 700;
     letter-spacing: 0.04em;
     line-height: 1.5;
@@ -187,7 +163,7 @@ title: ФизТех | ПИ
     gap: 6px;
     flex-wrap: wrap;
     font-size: 0.78rem;
-    color: var(--gray);
+    color: var(--darkgray);
     margin: -0.4rem 0 1rem;
   }
 
@@ -196,25 +172,26 @@ title: ФизТех | ПИ
   }
 
   .lesson-name {
-    font-size: 0.8rem;
-    line-height: 1.2;
+    font-size: 0.92rem;
+    line-height: 1.35;
+    font-weight: 600;
     color: var(--dark);
-    margin-bottom: 4px;
+    margin-bottom: 6px;
   }
 
   .lesson-room {
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     display: inline-block;
     background-color: var(--lightgray);
-    color: var(--gray);
-    padding: 1px 4px;
-    border-radius: 3px;
+    color: var(--darkgray);
+    padding: 2px 6px;
+    border-radius: 4px;
     font-family: monospace;
   }
 
   .no-lessons {
-    font-size: 0.8rem;
-    color: var(--gray);
+    font-size: 0.85rem;
+    color: var(--darkgray);
     text-align: center;
     padding: 12px 0;
   }
@@ -235,7 +212,7 @@ title: ФизТех | ПИ
 
   .contact-text {
     font-size: 0.8rem;
-    color: var(--gray);
+    color: var(--darkgray);
     line-height: 1.3;
   }
 
@@ -262,12 +239,13 @@ title: ФизТех | ПИ
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 3px 8px;
+    gap: 5px 8px;
   }
 
   .lesson-teacher {
-    font-size: 0.7rem;
-    color: var(--gray);
+    font-size: 0.76rem;
+    line-height: 1.3;
+    color: var(--darkgray);
   }
 
   .day-column.today,
@@ -294,18 +272,6 @@ title: ФизТех | ПИ
 
   .day-column.focus-next .day-header::after {
     content: "Завтра";
-    display: inline-block;
-    margin-left: 6px;
-    padding: 0 7px;
-    font-size: 0.6rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    line-height: 1.6;
-    vertical-align: middle;
-    border-radius: 999px;
-    background: var(--secondary);
-    color: #ffffff;
-	    
   }
 
   .lesson-card.now {
@@ -336,7 +302,7 @@ title: ФизТех | ПИ
 
   .install-hint {
     font-size: 0.8rem;
-    color: var(--gray);
+    color: var(--darkgray);
     margin: -0.4rem 0 1rem;
   }
 
@@ -356,13 +322,22 @@ title: ФизТех | ПИ
     }
 
     .controls-wrapper {
-      gap: 8px;
-      margin: 0.6rem 0;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px 8px;
+      margin: 0.6rem 0 0.8rem;
+      padding: 12px;
     }
 
-    .controls-wrapper .toggle-label,
     .controls-wrapper .full {
       display: none;
+    }
+
+    .controls-wrapper .toggle-label {
+      display: block;
+      width: 100%;
+      margin: 0 0 2px;
+      font-size: 0.72rem;
     }
 
     .controls-wrapper .short {
@@ -370,7 +345,20 @@ title: ФизТех | ПИ
     }
 
     .controls-wrapper .toggle-group {
-      gap: 4px;
+      flex-wrap: wrap;
+      min-width: 0;
+      gap: 6px;
+    }
+
+    .controls-wrapper .group-btn,
+    .controls-wrapper .week-btn {
+      flex: 1 1 0;
+      min-width: 0;
+      padding-inline: 4px;
+    }
+
+    .controls-wrapper .ics-btn {
+      width: 100%;
     }
 
     .type-legend {
@@ -418,7 +406,7 @@ title: ФизТех | ПИ
     <button class="week-btn active" data-week="a" onclick="setWeek('a', this)"><span class="full">Неделя </span>А</button>
     <button class="week-btn" data-week="b" onclick="setWeek('b', this)"><span class="full">Неделя </span>Б</button>
   </div>
-  <button class="ics-btn" onclick="downloadStaticICS()"><span class="full">В календарь (.ics)</span><span class="short">ICS</span></button>
+  <button class="ics-btn" onclick="downloadStaticICS()"><span class="full">В календарь (.ics)</span><span class="short">Календарь</span></button>
   <button class="ics-btn notes-btn" onclick="openNotes()">📚 Конспекты</button>
   <button class="ics-btn" id="install-btn" style="display:none" onclick="installApp()"><span class="full">Установить приложение</span><span class="short">Установить</span></button>
 </div>
@@ -796,8 +784,6 @@ title: ФизТех | ПИ
 </div>
 
 Официальное расписание на [cfuv.ru](https://cfuv.ru/raspisanie/): [ПИ-б-о-262](https://cfuv.ru/raspisanie/#g=%D0%9F%D0%98-%D0%B1-%D0%BE-262) · [ПИ-б-о-261](https://cfuv.ru/raspisanie/#g=%D0%9F%D0%98-%D0%B1-%D0%BE-261)
-
-Ещё: [[Учёба/index|Учёба]] (в разработке)
 
 <!-- БЛОК ОБ АВТОРЕ -->
 <div class="contact-box">

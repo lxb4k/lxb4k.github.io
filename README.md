@@ -1,17 +1,32 @@
-# Quartz v5
+# LxBH — сайт на Quartz v5
 
-> “[One] who works with the door open gets all kinds of interruptions, but [they] also occasionally gets clues as to what the world is and what might be important.” — Richard Hamming
+## Структура проекта
 
-Quartz is a set of tools that helps you publish your [digital garden](https://jzhao.xyz/posts/networked-thought) and notes as a website for free.
+| Путь                                                 | Для чего нужен                                                          |
+| ---------------------------------------------------- | ----------------------------------------------------------------------- |
+| `content/index.md`                                   | Главная страница с расписанием.                                         |
+| `content/Лекции/`                                    | Конспекты по предметам.                                                 |
+| `content/Материалы Moodle/`                          | Страницы курсов и PDF.                                                  |
+| `content/Сессия.md`, `content/Контрольные работы.md` | Учебные страницы с действующими адресами.                               |
+| `content/sw.js`                                      | Service worker в корне сайта.                                           |
+| `static/`                                            | Календари `.ics`, иконки и другие файлы по прямым ссылкам.              |
+| `quartz/`, `quartz.config.yaml`, `quartz.ts`         | Генератор, настройки и компоненты.                                      |
+| `.github/workflows/`                                 | Сценарии GitHub Actions.                                                |
+| `docs/`                                              | Сохранённая старая сборка; не используется текущим workflow публикации. |
+| `public/`                                            | Результат локальной сборки; папка создаётся заново.                     |
+| `node_modules/`                                      | Установленные зависимости npm.                                          |
+| `Физтех \| ПИ.md`                                    | Прежняя версия главной страницы вне `content/`.                         |
 
-🔗 Read the documentation and get started: https://quartz.jzhao.xyz/
+Рабочий Git-репозиторий находится в этой папке. Адреса страниц зависят от путей внутри `content/`, поэтому перед переносом этих файлов нужно подготовить перенаправления и проверить ссылки.
 
-[Join the Discord Community](https://discord.gg/cRFFHYye7t)
+## Локальная сборка
 
-## Sponsors
+Нужны Node.js 22+ и npm 10.9.2+.
 
-<p align="center">
-  <a href="https://github.com/sponsors/jackyzha0">
-    <img src="https://cdn.jsdelivr.net/gh/jackyzha0/jackyzha0/sponsorkit/sponsors.svg" />
-  </a>
-</p>
+```sh
+npm ci
+node quartz/bootstrap-cli.mjs build
+node quartz/bootstrap-cli.mjs build --serve
+```
+
+Документация генератора: [Quartz](https://quartz.jzhao.xyz/).

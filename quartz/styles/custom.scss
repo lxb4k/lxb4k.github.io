@@ -1,30 +1,32 @@
-/* Расписание ПИ — дополнения для Quartz 4 */
+/* Общие дополнения к теме Quartz и расписанию. */
 
 .current-day-label {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  margin: .2rem 0 .8rem;
+  margin: 0.2rem 0 0.8rem;
   padding: 5px 9px;
   border-radius: 999px;
-  background: rgba(42, 171, 238, .10);
-  color: var(--secondary, #2AABEE);
-  font-size: .78rem;
+  background: rgba(42, 171, 238, 0.1);
+  color: var(--secondary, #2aabee);
+  font-size: 0.78rem;
   font-weight: 700;
 }
 
 .group-btn[aria-pressed="true"],
 .week-btn[aria-pressed="true"] {
-  box-shadow: 0 0 0 2px rgba(42, 171, 238, .18);
+  box-shadow: 0 0 0 2px rgba(42, 171, 238, 0.18);
 }
 
 .lesson-card.next-lesson {
-  outline: 2px dashed rgba(42, 171, 238, .35);
+  outline: 2px dashed rgba(42, 171, 238, 0.35);
   outline-offset: 1px;
 }
 
 @media (max-width: 768px) {
-  .group-btn, .week-btn, .pwa-btn {
+  .group-btn,
+  .week-btn,
+  .pwa-btn {
     min-height: 42px;
   }
 }
@@ -42,45 +44,269 @@
 }
 
 /* Не показывать теги в списках заметок (страницы папок и тегов) */
-.section-li .tags,
+.page-listing .section-li .tags,
 article ul.tags,
 article ul:has(> li > a.tag-link) {
   display: none !important;
 }
 
 /* Не показывать дату в списках заметок */
-.section-li .meta {
+.page-listing .section-li .meta {
   display: none !important;
 }
 
-/* Список заметок: одна колонка на всю ширину, ровные строки */
-.section-li > .section {
-  display: block !important;
-  grid-template-columns: 1fr !important;
+/* Папки и конспекты: те же спокойные карточки, что в расписании. */
+.page-listing .section-ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 12px;
+  margin: 1rem 0 1.5rem;
+  padding: 0;
 }
 
-.section-li {
+.page-listing .section-li {
+  min-width: 0;
   margin: 0 !important;
-  padding: 0.55rem 0;
-  border-bottom: 1px solid var(--lightgray);
+  padding: 0;
+  border: 1px solid var(--lightgray);
+  border-radius: 12px;
+  background: var(--lightbg);
+  transition:
+    border-color 0.15s ease,
+    background-color 0.15s ease;
 }
 
-.section-li .desc h3 {
+.page-listing .section-li:hover,
+.page-listing .section-li:focus-within {
+  border-color: var(--secondary);
+  background: color-mix(in srgb, var(--secondary) 8%, var(--lightbg));
+}
+
+.page-listing .section-li > .section {
+  display: block !important;
+}
+
+.page-listing .section-li .desc h3 {
   margin: 0;
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 600;
   line-height: 1.4;
   font-variant-numeric: tabular-nums;
 }
 
-article table {
-  width: 100%;
+.page-listing .section-li .desc h3 a {
+  display: flex;
+  align-items: center;
+  min-height: 66px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  color: var(--dark);
+  background: transparent;
+  overflow-wrap: anywhere;
 }
 
-.section-li {
-  border: none !important;
+.page-listing .section-li .desc h3 a:hover {
+  color: var(--secondary);
 }
 
-.section-li:not(:has(a)) {
+.page-listing .section-li .desc h3 a:focus-visible {
+  outline: 2px solid var(--secondary);
+  outline-offset: -2px;
+}
+
+.page-listing .section-li:not(:has(a)) {
   display: none !important;
+}
+
+/* Навигация и метаданные остаются читаемыми в обеих темах. */
+.breadcrumb-container,
+.toc .toc-content a {
+  color: var(--darkgray);
+}
+
+.explorer .nav-file-title,
+.explorer .folder-container {
+  border-radius: 8px;
+}
+
+.explorer .nav-file-title:hover,
+.explorer .folder-container:hover {
+  background: color-mix(in srgb, var(--secondary) 12%, transparent);
+}
+
+.toc .toc-content a:hover,
+.toc .toc-content a.in-view {
+  color: var(--secondary);
+  opacity: 1;
+}
+
+/* Таблицы сессии и конспектов: единый блок с прокруткой на телефоне. */
+article .table-container {
+  margin: 1rem 0 1.5rem;
+  overflow-x: auto;
+  border: 1px solid var(--lightgray);
+  border-radius: 12px;
+  background: var(--lightbg);
+}
+
+article .table-container > table {
+  width: 100%;
+  min-width: 480px;
+  margin: 0;
+  padding: 0;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+article .table-container th,
+article .table-container td {
+  padding: 10px 12px;
+  vertical-align: top;
+  border-bottom: 1px solid var(--lightgray);
+}
+
+article .table-container th {
+  color: var(--dark);
+  background: color-mix(in srgb, var(--secondary) 11%, var(--lightbg));
+  font-weight: 700;
+}
+
+article .table-container tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+article .table-container tbody tr:hover {
+  background: color-mix(in srgb, var(--secondary) 6%, var(--lightbg));
+}
+
+article .callout {
+  border-radius: 12px;
+}
+
+/* Конспекты: одинаковая иерархия заголовков и ритм чтения. */
+body[data-slug^="лекции/"] article .markdown-preview-view {
+  line-height: 1.65;
+}
+
+body[data-slug^="лекции/"] .article-title {
+  margin-bottom: 0.9rem;
+  line-height: 1.25;
+}
+
+body[data-slug^="лекции/"] article .markdown-preview-view > h1:first-child {
+  margin: 0 0 1.35rem;
+  color: var(--darkgray);
+  font-family: var(--bodyFont);
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+body[data-slug^="лекции/"] article h2 {
+  margin: 2.1rem 0 0.85rem;
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid var(--lightgray);
+  font-size: clamp(1.2rem, 1.8vw, 1.45rem);
+  line-height: 1.35;
+}
+
+body[data-slug^="лекции/"] article h3 {
+  margin: 1.5rem 0 0.65rem;
+  font-size: 1.1rem;
+  line-height: 1.4;
+}
+
+body[data-slug^="лекции/"] article p,
+body[data-slug^="лекции/"] article li {
+  line-height: 1.65;
+}
+
+body[data-slug^="лекции/"] article li + li {
+  margin-top: 0.35rem;
+}
+
+body[data-slug^="лекции/"] article hr {
+  margin: 1.8rem 0;
+  border-color: var(--lightgray);
+}
+
+body[data-slug^="лекции/"] article .callout {
+  margin: 1rem 0 1.25rem;
+  border: 1px solid var(--lightgray);
+}
+
+body[data-slug^="лекции/"] article .callout-title {
+  padding: 0.7rem 0.9rem;
+}
+
+body[data-slug^="лекции/"] article .callout-content {
+  padding: 0 0.9rem 0.8rem;
+}
+
+body[data-slug^="лекции/"] article .katex-display {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.75rem 0.25rem;
+}
+
+/* Внутреннее оглавление нужно на телефоне; на ПК работает боковое. */
+body[data-slug^="лекции/"] article h2[id*="оглавление"] + ul {
+  margin: 0 0 1.4rem;
+  padding: 0.85rem 1rem 0.85rem 2rem;
+  border: 1px solid var(--lightgray);
+  border-radius: 12px;
+  background: var(--lightbg);
+}
+
+@media (min-width: 1200px) {
+  body[data-slug^="лекции/"] article h2[id*="оглавление"],
+  body[data-slug^="лекции/"] article h2[id*="оглавление"] + ul {
+    display: none;
+  }
+}
+
+body[data-slug^="лекции/"] .toc .toc-content {
+  max-height: calc(100vh - 10rem);
+  overflow-y: auto;
+  padding-right: 0.4rem;
+}
+
+body[data-slug^="лекции/"] .toc .toc-content a {
+  opacity: 0.85;
+}
+
+body[data-slug^="лекции/"]:has(article .markdown-preview-view > h1:first-child)
+  .toc
+  .toc-content
+  > li:first-child,
+body[data-slug^="лекции/"] .toc .toc-content > li:has(> a[href*="оглавление"]) {
+  display: none;
+}
+
+@media (max-width: 800px) {
+  body[data-slug^="лекции/"] .breadcrumb-element:last-child,
+  body[data-slug^="лекции/"] .breadcrumb-element:nth-last-child(2) p {
+    display: none;
+  }
+}
+
+/* Подвал с собственными ссылками сайта. */
+footer {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--lightgray);
+  opacity: 1;
+}
+
+footer p,
+footer a {
+  font-size: 0.82rem;
+  color: var(--darkgray);
+}
+
+footer ul {
+  gap: 1rem;
+  margin-top: 0.35rem;
 }

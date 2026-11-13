@@ -7,7 +7,7 @@ configuration:
   analytics:
     provider: google
     tagId: G-M75GZ98FML
-  locale: en-US
+  locale: ru-RU
   baseUrl: lxbh.site
   ignorePatterns:
     - privatgrap
@@ -206,8 +206,8 @@ plugins:
     enabled: true
     options:
       links:
-        GitHub: https://github.com/jackyzha0/quartz
-        Discord Community: https://discord.gg/cRFFHYye7t
+        GitHub: https://github.com/lxb4k/lxb4k.github.io
+        Telegram: https://t.me/lxb4k
     layout:
       position: footer
       priority: 50
