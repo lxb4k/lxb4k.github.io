@@ -29,7 +29,7 @@ title: ФизТех | ПИ
     margin-right: 4px;
   }
 
-  .week-btn, .group-btn, .ics-btn {
+  .week-btn, .group-btn, .subgroup-btn, .ics-btn {
     background: var(--light);
     color: var(--darkgray);
     border: 1px solid var(--lightgray);
@@ -43,7 +43,7 @@ title: ФизТех | ПИ
     transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
   }
 
-  .week-btn:hover, .group-btn:hover, .ics-btn:hover {
+  .week-btn:hover, .group-btn:hover, .subgroup-btn:hover, .ics-btn:hover {
     border-color: var(--secondary);
     color: var(--secondary);
   }
@@ -53,7 +53,7 @@ title: ФизТех | ПИ
     outline-offset: 2px;
   }
 
-  .week-btn.active, .group-btn.active {
+  .week-btn.active, .group-btn.active, .subgroup-btn.active {
     background: var(--secondary);
     color: #ffffff;
     border-color: var(--secondary);
@@ -116,6 +116,29 @@ title: ФизТех | ПИ
 
   .lesson-card:last-child {
     margin-bottom: 0;
+  }
+
+  .lesson-card.subgroup-hidden,
+  .subgroup-toggle[hidden] {
+    display: none;
+  }
+
+  .lesson-card.cancelled {
+    border-left-color: color-mix(in srgb, var(--darkgray) 65%, var(--lightgray));
+    background: var(--lightgray);
+  }
+
+  .lesson-card.cancelled .lesson-time,
+  .lesson-card.cancelled .lesson-name,
+  .lesson-card.cancelled .lesson-meta,
+  .lesson-card.cancelled .lesson-type {
+    color: color-mix(in srgb, var(--darkgray) 65%, var(--lightgray));
+    text-decoration: line-through;
+  }
+
+  .lesson-card.cancelled .lesson-type {
+    background: transparent;
+    border-color: color-mix(in srgb, var(--darkgray) 65%, var(--lightgray));
   }
 
   .lesson-time {
@@ -351,7 +374,8 @@ title: ФизТех | ПИ
     }
 
     .controls-wrapper .group-btn,
-    .controls-wrapper .week-btn {
+    .controls-wrapper .week-btn,
+    .controls-wrapper .subgroup-btn {
       flex: 1 1 0;
       min-width: 0;
       padding-inline: 4px;
@@ -405,6 +429,11 @@ title: ФизТех | ПИ
     <span class="toggle-label">Неделя:</span>
     <button class="week-btn active" data-week="a" onclick="setWeek('a', this)"><span class="full">Неделя </span>А</button>
     <button class="week-btn" data-week="b" onclick="setWeek('b', this)"><span class="full">Неделя </span>Б</button>
+  </div>
+  <div class="toggle-group subgroup-toggle" id="subgroup-toggle" hidden>
+    <span class="toggle-label">Подгруппа:</span>
+    <button class="subgroup-btn active" data-subgroup="1" onclick="setSubgroup('1')" aria-pressed="true">1</button>
+    <button class="subgroup-btn" data-subgroup="2" onclick="setSubgroup('2')" aria-pressed="false">2</button>
   </div>
   <button class="ics-btn" onclick="downloadStaticICS()"><span class="full">В календарь (.ics)</span><span class="short">Календарь</span></button>
   <button class="ics-btn notes-btn" onclick="openNotes()">📚 Конспекты</button>
@@ -476,7 +505,7 @@ title: ФизТех | ПИ
       <div class="lesson-name">Физическая культура</div>
       <div class="lesson-meta"><span class="lesson-room">спортзал</span><span class="lesson-teacher">Мищенко С.Г.</span></div>
     </div>
-    <div class="lesson-card pz" data-start="690" data-end="780">
+    <div class="lesson-card pz cancelled" data-start="690" data-end="780" aria-label="Русский язык как государственный — не проводится">
       <div class="lesson-time">11:30–13:00 <span class="lesson-type pz">ПЗ</span></div>
       <div class="lesson-name">Русский язык как государственный</div>
       <div class="lesson-meta"><span class="lesson-room">412В</span><span class="lesson-teacher">Прадид О.Ю.</span></div>
@@ -602,7 +631,7 @@ title: ФизТех | ПИ
       <div class="lesson-name">Русский язык как государственный</div>
       <div class="lesson-meta"><span class="lesson-room">411В</span><span class="lesson-teacher">Прадид О.Ю.</span></div>
     </div>
-    <div class="lesson-card pz" data-start="1000" data-end="1090">
+    <div class="lesson-card pz" data-subgroup="2" data-start="1000" data-end="1090">
       <div class="lesson-time">16:40–18:10 <span class="lesson-type pz">ПЗ</span></div>
       <div class="lesson-name">Иностранный язык (п/гр 2)</div>
       <div class="lesson-meta"><span class="lesson-room">531Б</span><span class="lesson-teacher">Мельниченко Т.В.</span></div>
@@ -628,7 +657,7 @@ title: ФизТех | ПИ
       <div class="lesson-name">История России</div>
       <div class="lesson-meta"><span class="lesson-room">302В</span><span class="lesson-teacher">Манаев А.Ю.</span></div>
     </div>
-    <div class="lesson-card pz" data-start="690" data-end="780">
+    <div class="lesson-card pz" data-subgroup="1" data-start="690" data-end="780">
       <div class="lesson-time">11:30–13:00 <span class="lesson-type pz">ПЗ</span></div>
       <div class="lesson-name">Иностранный язык (п/гр 1)</div>
       <div class="lesson-meta"><span class="lesson-room">500Б</span><span class="lesson-teacher">Шестакова Е.С.</span></div>
@@ -646,12 +675,12 @@ title: ФизТех | ПИ
       <div class="lesson-name">Физическая культура</div>
       <div class="lesson-meta"><span class="lesson-room">спортзал</span><span class="lesson-teacher">Ковальчук Е.С.</span></div>
     </div>
-    <div class="lesson-card pz" data-start="690" data-end="780">
+    <div class="lesson-card pz" data-subgroup="1" data-start="690" data-end="780">
       <div class="lesson-time">11:30–13:00 <span class="lesson-type pz">ПЗ</span></div>
       <div class="lesson-name">Информатика и основы программирования (п/гр 1)</div>
       <div class="lesson-meta"><span class="lesson-room">119А</span><span class="lesson-teacher">ас.Абдурахманова Ф.Э.</span></div>
     </div>
-    <div class="lesson-card pz" data-start="800" data-end="890">
+    <div class="lesson-card pz" data-subgroup="2" data-start="800" data-end="890">
       <div class="lesson-time">13:20–14:50 <span class="lesson-type pz">ПЗ</span></div>
       <div class="lesson-name">Информатика и основы программирования (п/гр 2)</div>
       <div class="lesson-meta"><span class="lesson-room">119А</span><span class="lesson-teacher">ас.Абдурахманова Ф.Э.</span></div>
@@ -659,12 +688,12 @@ title: ФизТех | ПИ
   </div>
   <div class="day-column" data-d="4">
     <div class="day-header">Пт</div>
-    <div class="lesson-card pz" data-start="690" data-end="780">
+    <div class="lesson-card pz" data-subgroup="1" data-start="690" data-end="780">
       <div class="lesson-time">11:30–13:00 <span class="lesson-type pz">ПЗ</span></div>
       <div class="lesson-name">Алгоритмизация и программирование (п/гр 1)</div>
       <div class="lesson-meta"><span class="lesson-room">8А</span><span class="lesson-teacher">Чабанов В.В.</span></div>
     </div>
-    <div class="lesson-card pz" data-start="800" data-end="890">
+    <div class="lesson-card pz" data-subgroup="2" data-start="800" data-end="890">
       <div class="lesson-time">13:20–14:50 <span class="lesson-type pz">ПЗ</span></div>
       <div class="lesson-name">Алгоритмизация и программирование (п/гр 2)</div>
       <div class="lesson-meta"><span class="lesson-room">8А</span><span class="lesson-teacher">Чабанов В.В.</span></div>
@@ -695,7 +724,7 @@ title: ФизТех | ПИ
       <div class="lesson-name">Структуры и алгоритмы обработки данных</div>
       <div class="lesson-meta"><span class="lesson-room">323А</span><span class="lesson-teacher">Горская И.Ю.</span></div>
     </div>
-    <div class="lesson-card pz" data-start="1000" data-end="1090">
+    <div class="lesson-card pz" data-subgroup="2" data-start="1000" data-end="1090">
       <div class="lesson-time">16:40–18:10 <span class="lesson-type pz">ПЗ</span></div>
       <div class="lesson-name">Иностранный язык (п/гр 2)</div>
       <div class="lesson-meta"><span class="lesson-room">531Б</span><span class="lesson-teacher">Мельниченко Т.В.</span></div>
@@ -731,7 +760,7 @@ title: ФизТех | ПИ
       <div class="lesson-name">История России</div>
       <div class="lesson-meta"><span class="lesson-room">302В</span><span class="lesson-teacher">Манаев А.Ю.</span></div>
     </div>
-    <div class="lesson-card pz" data-start="690" data-end="780">
+    <div class="lesson-card pz" data-subgroup="1" data-start="690" data-end="780">
       <div class="lesson-time">11:30–13:00 <span class="lesson-type pz">ПЗ</span></div>
       <div class="lesson-name">Иностранный язык (п/гр 1)</div>
       <div class="lesson-meta"><span class="lesson-room">500Б</span><span class="lesson-teacher">Шестакова Е.С.</span></div>
@@ -744,12 +773,12 @@ title: ФизТех | ПИ
       <div class="lesson-name">Физическая культура</div>
       <div class="lesson-meta"><span class="lesson-room">спортзал</span><span class="lesson-teacher">Ковальчук Е.С.</span></div>
     </div>
-    <div class="lesson-card pz" data-start="690" data-end="780">
+    <div class="lesson-card pz" data-subgroup="1" data-start="690" data-end="780">
       <div class="lesson-time">11:30–13:00 <span class="lesson-type pz">ПЗ</span></div>
       <div class="lesson-name">Информатика и основы программирования (п/гр 1)</div>
       <div class="lesson-meta"><span class="lesson-room">120А</span><span class="lesson-teacher">ас.Абдурахманова Ф.Э.</span></div>
     </div>
-    <div class="lesson-card pz" data-start="800" data-end="890">
+    <div class="lesson-card pz" data-subgroup="2" data-start="800" data-end="890">
       <div class="lesson-time">13:20–14:50 <span class="lesson-type pz">ПЗ</span></div>
       <div class="lesson-name">Информатика и основы программирования (п/гр 2)</div>
       <div class="lesson-meta"><span class="lesson-room">120А</span><span class="lesson-teacher">ас.Абдурахманова Ф.Э.</span></div>
@@ -757,12 +786,12 @@ title: ФизТех | ПИ
   </div>
   <div class="day-column" data-d="4">
     <div class="day-header">Пт</div>
-    <div class="lesson-card pz" data-start="690" data-end="780">
+    <div class="lesson-card pz" data-subgroup="1" data-start="690" data-end="780">
       <div class="lesson-time">11:30–13:00 <span class="lesson-type pz">ПЗ</span></div>
       <div class="lesson-name">Алгоритмизация и программирование (п/гр 1)</div>
       <div class="lesson-meta"><span class="lesson-room">8А</span><span class="lesson-teacher">Чабанов В.В.</span></div>
     </div>
-    <div class="lesson-card pz" data-start="800" data-end="890">
+    <div class="lesson-card pz" data-subgroup="2" data-start="800" data-end="890">
       <div class="lesson-time">13:20–14:50 <span class="lesson-type pz">ПЗ</span></div>
       <div class="lesson-name">Алгоритмизация и программирование (п/гр 2)</div>
       <div class="lesson-meta"><span class="lesson-room">8А</span><span class="lesson-teacher">Чабанов В.В.</span></div>
@@ -770,12 +799,12 @@ title: ФизТех | ПИ
   </div>
   <div class="day-column" data-d="5">
     <div class="day-header">Сб</div>
-    <div class="lesson-card pz" data-start="590" data-end="680">
+    <div class="lesson-card pz" data-subgroup="1" data-start="590" data-end="680">
       <div class="lesson-time">09:50–11:20 <span class="lesson-type pz">ПЗ</span></div>
       <div class="lesson-name">Структуры и алгоритмы обработки данных (п/гр 1)</div>
       <div class="lesson-meta"><span class="lesson-room">308А</span><span class="lesson-teacher">Горская И.Ю.</span></div>
     </div>
-    <div class="lesson-card pz" data-start="690" data-end="780">
+    <div class="lesson-card pz" data-subgroup="2" data-start="690" data-end="780">
       <div class="lesson-time">11:30–13:00 <span class="lesson-type pz">ПЗ</span></div>
       <div class="lesson-name">Структуры и алгоритмы обработки данных (п/гр 2)</div>
       <div class="lesson-meta"><span class="lesson-room">308А</span><span class="lesson-teacher">Горская И.Ю.</span></div>
@@ -796,6 +825,7 @@ title: ФизТех | ПИ
 <!-- СКРИПТ: переключатели, сегодня, текущая пара, календарь, веб-приложение -->
 <script>
 var currentGroup = '262';
+var currentSubgroup = '1';
 var currentWeek = 'a';
 var realWeek = 'a';
 var schedTimer = null;
@@ -835,7 +865,7 @@ function nowInfo() {
 function lessonsOf(g, w, d) {
   var col = document.querySelector('#sched-' + g + '-' + w + ' .day-column[data-d="' + d + '"]');
   if (!col) return [];
-  return Array.prototype.map.call(col.querySelectorAll('.lesson-card'), function (c) {
+  return Array.prototype.map.call(col.querySelectorAll('.lesson-card:not(.cancelled):not(.subgroup-hidden)'), function (c) {
     var room = c.querySelector('.lesson-room');
     var teacher = c.querySelector('.lesson-teacher');
     return {
@@ -882,6 +912,7 @@ function markToday() {
       if (col) {
         col.classList.add('today');
         Array.prototype.forEach.call(col.querySelectorAll('.lesson-card'), function (c) {
+          if (c.classList.contains('cancelled') || c.classList.contains('subgroup-hidden')) return;
           var s0 = Number(c.getAttribute('data-start'));
           var e0 = Number(c.getAttribute('data-end'));
           if (n.mins >= s0 && n.mins < e0) c.classList.add('now');
@@ -966,6 +997,19 @@ function syncButtons() {
     b.classList.toggle('active', b.getAttribute('data-week') === currentWeek);
     b.classList.toggle('cur', b.getAttribute('data-week') === realWeek);
   });
+  var subgroupToggle = document.getElementById('subgroup-toggle');
+  if (subgroupToggle) subgroupToggle.hidden = currentGroup !== '261';
+  Array.prototype.forEach.call(document.querySelectorAll('.subgroup-btn'), function (b) {
+    var active = b.getAttribute('data-subgroup') === currentSubgroup;
+    b.classList.toggle('active', active);
+    b.setAttribute('aria-pressed', String(active));
+  });
+}
+
+function filterSubgroup() {
+  Array.prototype.forEach.call(document.querySelectorAll('#sched-261-a .lesson-card[data-subgroup], #sched-261-b .lesson-card[data-subgroup]'), function (c) {
+    c.classList.toggle('subgroup-hidden', c.getAttribute('data-subgroup') !== currentSubgroup);
+  });
 }
 
 var userWeek = false;
@@ -997,6 +1041,14 @@ function updateDisplay() {
 function setGroup(group) {
   currentGroup = group;
   try { localStorage.setItem('sched-group', group); } catch (e) {}
+  updateDisplay();
+}
+
+function setSubgroup(subgroup) {
+  if (subgroup !== '1' && subgroup !== '2') return;
+  currentSubgroup = subgroup;
+  try { localStorage.setItem('sched-subgroup', subgroup); } catch (e) {}
+  filterSubgroup();
   updateDisplay();
 }
 
@@ -1070,7 +1122,10 @@ function initSchedule() {
   try {
     var sg = localStorage.getItem('sched-group');
     if (sg === '261' || sg === '262') currentGroup = sg;
+    var ss = localStorage.getItem('sched-subgroup');
+    if (ss === '1' || ss === '2') currentSubgroup = ss;
   } catch (e) {}
+  filterSubgroup();
   var f0 = focusFor(currentGroup);
   currentWeek = f0 ? f0.week : (n.dow > 5 ? (realWeek === 'a' ? 'b' : 'a') : realWeek);
   userWeek = false;
