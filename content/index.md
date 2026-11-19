@@ -544,7 +544,7 @@ title: ФизТех | ПИ
       <div class="lesson-name">Информатика и основы программирования</div>
       <div class="lesson-meta"><span class="lesson-room">323А</span><span class="lesson-teacher">Брецько М.В.</span></div>
     </div>
-    <div class="lesson-card lk" data-start="900" data-end="990">
+    <div class="lesson-card lk cancelled" data-start="900" data-end="990" aria-label="Структуры и алгоритмы обработки данных — не проводится">
       <div class="lesson-time">15:00–16:30 <span class="lesson-type lk">ЛК</span></div>
       <div class="lesson-name">Структуры и алгоритмы обработки данных</div>
       <div class="lesson-meta"><span class="lesson-room">323А</span><span class="lesson-teacher">Горская И.Ю.</span></div>
@@ -719,7 +719,7 @@ title: ФизТех | ПИ
       <div class="lesson-name">Информатика и основы программирования</div>
       <div class="lesson-meta"><span class="lesson-room">323А</span><span class="lesson-teacher">Брецько М.В.</span></div>
     </div>
-    <div class="lesson-card lk" data-start="900" data-end="990">
+    <div class="lesson-card lk cancelled" data-start="900" data-end="990" aria-label="Структуры и алгоритмы обработки данных — не проводится">
       <div class="lesson-time">15:00–16:30 <span class="lesson-type lk">ЛК</span></div>
       <div class="lesson-name">Структуры и алгоритмы обработки данных</div>
       <div class="lesson-meta"><span class="lesson-room">323А</span><span class="lesson-teacher">Горская И.Ю.</span></div>
